@@ -8,7 +8,7 @@ class Tokenizer():
         self.tokenizer = BertTokenizer.from_pretrained('bert-base-uncased', cache_dir='data')
     
 
-    def tokenize(self, data: list, max_lenght=128):
+    def tokenize(self, data: list, max_length=128):
         input_ids = []
         attention_mask = []
 
@@ -16,8 +16,8 @@ class Tokenizer():
             encoded_dict = self.tokenizer._encode_plus(
                 comment,
                 add_special_tokens=True,
-                max_lenght=max_lenght,
-                pad_to_max_lenght=True,
+                max_length=max_length,
+                pad_to_max_length=True,
                 return_attention_mask=True,
                 return_tensors='pt'
             )
