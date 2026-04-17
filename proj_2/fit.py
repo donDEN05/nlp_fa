@@ -1,12 +1,12 @@
-from transformers import BertForSequenceClassification, AdamW
+from transformers import BertForSequenceClassification
+from torch.optim import AdamW
 from torch.optim.lr_scheduler import ReduceLROnPlateau
 from config import config
 
 
 class Model():
     def __init__(self):
-        self.model = BertForSequenceClassification.from_pretrained(config.madel_name, num_labels=config.num_labels)
-        self.device = 'cuda'
+        self.model = BertForSequenceClassification.from_pretrained(config.model_name, num_labels=config.num_labels, cache_dir=config.cache_dir).to(config.device)
         self.optimizer = AdamW(self.model.parameters(), lr=2e-5)
         self.scheduler = ReduceLROnPlateau(self.optimizer, 'min')
     
@@ -25,6 +25,6 @@ class Model():
                 total_loss += loss
                 loss.backward()
                 self.optimizer.step()
-                self.scheduler.step()
+            self.scheduler.step()
             
             print(f'Эпоха - {epoch}, Лосс - {total_loss}')
