@@ -1,4 +1,5 @@
 from torch.utils.data import DataLoader, TensorDataset
+from config import config
 
 
 class CustomDataLoader():
@@ -8,6 +9,6 @@ class CustomDataLoader():
 
     def dataloader(self, input_ids, attention_mask, labels):
         dataset = TensorDataset(input_ids, attention_mask, labels)
-        dataloader = DataLoader(dataset, batch_size=128, shuffle=True)
+        dataloader_ = DataLoader(dataset, batch_size=config.batch_size, shuffle=True)
 
-        
+        return dataloader_
