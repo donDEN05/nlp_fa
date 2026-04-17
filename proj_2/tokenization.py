@@ -5,10 +5,11 @@ from transformers import BertTokenizer
 class Tokenizer():
     def __init__(self):
         self.base = None
-        self.tokenizer = BertTokenizer.from_pretrained('bert-base-uncased', cache_dir='data')
+        self.tokenizer = BertTokenizer.from_pretrained('bert-base-uncased', 
+                                                       cache_dir='data')
     
 
-    def tokenize(self, data: list, max_length=128):
+    def tokenize(self, data, labels, max_length=128):
         input_ids = []
         attention_mask = []
 
@@ -27,5 +28,10 @@ class Tokenizer():
 
         input_ids = torch.cat(input_ids, dim=0)
         attention_mask = torch.cat(attention_mask, dim=0)
+        output_labels = torch.tensor(data=labels, dtype=torch.float32)
 
-        return input_ids, attention_mask
+        return input_ids, attention_mask, output_labels
+    
+
+    def decode(self, input_ids):
+        return self.tokenizer.decode(input_ids)
