@@ -19,3 +19,4 @@ class CustomDataLoader():
         dataloader_ = DataLoader(dataset, batch_size=config.batch_size, shuffle=False)
 
         return dataloader_
+    
