@@ -23,7 +23,19 @@ class Tokenizer():
         output_labels = torch.tensor(data=labels.to_numpy().tolist(), dtype=torch.float32)
 
         return encoded_dict['input_ids'], encoded_dict['attention_mask'], output_labels
-    
 
+
+    def tokenize_val(self, data, max_length=config.max_length):
+        encoded_dict = self.tokenizer(
+            data.to_numpy().tolist(),
+            padding='max_length',
+            truncation=True,
+            max_length=max_length,
+            return_tensors='pt'
+        )
+
+        return encoded_dict['input_ids'], encoded_dict['attention_mask']
+
+    
     def decode(self, input_ids):
         return self.tokenizer.decode(input_ids)

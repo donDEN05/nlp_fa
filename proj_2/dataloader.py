@@ -12,3 +12,10 @@ class CustomDataLoader():
         dataloader_ = DataLoader(dataset, batch_size=config.batch_size, shuffle=True)
 
         return dataloader_
+    
+
+    def dataloader_val(self, input_ids, attention_mask):
+        dataset = TensorDataset(input_ids, attention_mask)
+        dataloader_ = DataLoader(dataset, batch_size=config.batch_size, shuffle=False)
+
+        return dataloader_
